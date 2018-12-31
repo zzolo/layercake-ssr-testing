@@ -1,0 +1,55 @@
+<div class="chart">
+	<div class="chart-container" ref:chartContainer>
+		{#if !isBrowser}
+			<LayerCakeContainer />
+		{/if}
+	</div>
+</div>
+
+<style>
+	.chart-container {
+	  position: relative;
+	  box-sizing: border-box;
+	  height: 20em;
+	  border: 1px solid #bbccdd;
+	}
+</style>
+
+<script>
+		import LayerCake from "../layercake-hack/src/layercake.js";
+		import LayerCakeContainer from "../layercake-hack/src/LayerCakeContainer.html";
+		import ChartOutline from "./ChartOutline.html";
+		const isBrowser = typeof window !== "undefined";
+
+		// Make layercake
+		function bake(component = undefined) {
+		  return new LayerCake({
+		    // Defualt width and height for SSR
+		    width: 100,
+		    height: 100,
+		    padding: { top: 10, right: 10, bottom: 20, left: 20 },
+		    target: component ? component.refs.chartContainer : undefined
+		  }).svgLayers([{ component: ChartOutline }]);
+		}
+
+		export default {
+		  components: {
+		    LayerCakeContainer
+		  },
+
+		  oncreate() {
+		    this._cake = bake(this);
+		    this._cake.render();
+		  },
+
+		  store() {
+		    return !isBrowser ? bake() : undefined;
+		  },
+
+		  data() {
+		    return {
+		      isBrowser: typeof window !== "undefined"
+		    };
+		  }
+		};
+</script>

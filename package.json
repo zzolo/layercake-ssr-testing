@@ -1,0 +1,43 @@
+{
+	"name": "layercake-ssr-testing",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build:ssr": "mkdir -p build && node generate-ssr.js > build/index.html",
+		"build:client": "rollup -c rollup.config.js",
+		"build": "npm run build:ssr && npm run build:client",
+		"watch": "watch \"npm run build\" components/ src/",
+		"serve": "live-server build/",
+		"dev": "concurrently \"npm run watch\" \"npm run serve\""
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/zzolo/layercake-ssr-testing.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/zzolo/layercake-ssr-testing/issues"
+	},
+	"homepage": "https://github.com/zzolo/layercake-ssr-testing#readme",
+	"devDependencies": {
+		"concurrently": "^4.1.0",
+		"eslint": "^5.11.1",
+		"eslint-config-standard": "^12.0.0",
+		"esm": "^3.0.84",
+		"live-server": "^1.2.1",
+		"mocha": "^5.2.0",
+		"rollup": "^1.0.0",
+		"rollup-plugin-commonjs": "^9.2.0",
+		"rollup-plugin-node-resolve": "^4.0.0",
+		"rollup-plugin-svelte": "^5.0.1",
+		"svelte": "^2.16.0",
+		"watch": "^1.0.2"
+	},
+	"dependencies": {
+		"d3-scale": "^2.1.2"
+	}
+}

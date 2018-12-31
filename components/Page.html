@@ -1,0 +1,47 @@
+<svelte:head>
+	<title>SSR LayerCake Testing</title>
+	<style>
+	/* Body styles don't come through Svelte? */
+	body {
+	  padding: 0;
+	  margin: 0;
+	  font-family: monospace;
+	}
+</style>
+</svelte:head>
+
+<header>
+	<h1>SSR LayerCake testing</h1>
+</header>
+
+<main>
+	<p>Client loads after 3 seconds; loaded: { client ? 'yes' : 'no' }</p>
+	<p>Here is a Cake:</p>
+
+	<Chart />
+</main>
+
+<footer>
+	<!-- client-side bundled JS -->
+	<script src="./bundle.js"></script>
+</footer>
+
+<style>
+	header,
+	main,
+	footer {
+	  max-width: 50em;
+	  margin: 0 auto 2em;
+	}
+</style>
+
+<script>
+	import Chart from './Chart.html';
+
+	export default {
+		components: {
+			Chart
+		}
+	}
+
+</script>
