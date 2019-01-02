@@ -7,8 +7,14 @@ require("svelte/ssr/register");
 // Get app
 const App = require("./components/Page.html");
 
+// Get data
+const exampleData = require("./src/example-data.json");
+
 // Render
-let { html, css, head } = App.render({});
+let { html, css, head } = App.render({
+	cleint: false,
+	exampleData
+});
 
 // Output
 console.log(`<!doctype html>

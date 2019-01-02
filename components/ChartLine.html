@@ -1,0 +1,31 @@
+<path class="chart-line" d="{ path }"></path>
+
+<style>
+  .chart-line {
+    fill: none;
+    stroke: red;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    stroke-width: 2;
+  }
+</style>
+
+<script>
+  export default {
+    namespace: "svg",
+
+    computed: {
+      path: ({ $data, $xGet, $yGet }) => {
+        return $data
+          ? "M" +
+              $data
+                .map((d, i) => {
+                  return $xGet(d) + "," + $yGet(d);
+                })
+                .join("L")
+          : "";
+      }
+    }
+  };
+</script>
+

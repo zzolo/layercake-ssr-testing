@@ -19,6 +19,7 @@
 		import LayerCake from "../layercake-hack/src/layercake.js";
 		import LayerCakeContainer from "../layercake-hack/src/LayerCakeContainer.html";
 		import ChartOutline from "./ChartOutline.html";
+		import ChartLine from "./ChartLine.html";
 		const isBrowser = typeof window !== "undefined";
 
 		// Make layercake
@@ -28,8 +29,11 @@
 		    width: 100,
 		    height: 100,
 		    padding: { top: 10, right: 10, bottom: 20, left: 20 },
-		    target: component ? component.refs.chartContainer : undefined
-		  }).svgLayers([{ component: ChartOutline }]);
+		    target: component ? component.refs.chartContainer : undefined,
+		    data: component ? component.get().data : undefined,
+		    x: "x",
+		    y: "y"
+		  }).svgLayers([{ component: ChartOutline }, { component: ChartLine }]);
 		}
 
 		export default {
