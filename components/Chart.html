@@ -1,13 +1,11 @@
 <div class="chart">
-	<div class="chart-container" ref:chartContainer>
-		{#if !isBrowser}
-			<LayerCakeContainer />
-		{/if}
-	</div>
+	<LayerCake
+		{...props}
+	/>
 </div>
 
 <style>
-	.chart-container {
+	.chart {
 	  position: relative;
 	  box-sizing: border-box;
 	  height: 20em;
@@ -16,44 +14,34 @@
 </style>
 
 <script>
-		import LayerCake from "../layercake-hack/src/layercake.js";
-		import LayerCakeContainer from "../layercake-hack/src/LayerCakeContainer.html";
-		import ChartOutline from "./ChartOutline.html";
-		import ChartLine from "./ChartLine.html";
-		const isBrowser = typeof window !== "undefined";
+	import LayerCake from "../layercake/LayerCake.html";
+	import ChartOutline from "./ChartOutline.html";
+	import ChartLine from "./ChartLine.html";
 
-		// Make layercake
-		function bake(component = undefined) {
-		  return new LayerCake({
-		    // Defualt width and height for SSR
-		    width: 100,
-		    height: 100,
-		    padding: { top: 10, right: 10, bottom: 20, left: 20 },
-		    target: component ? component.refs.chartContainer : undefined,
-		    data: component ? component.get().data : undefined,
-		    x: "x",
-		    y: "y"
-		  }).svgLayers([{ component: ChartOutline }, { component: ChartLine }]);
-		}
+	export default {
+	  components: {
+	    LayerCake
+	  },
 
-		export default {
-		  components: {
-		    LayerCakeContainer
-		  },
+	  computed: {
+	    // Maybe we should be more intentional about what gets passed
+	    props: state => state
+	  },
 
-		  oncreate() {
-		    this._cake = bake(this);
-		    this._cake.render();
-		  },
-
-		  store() {
-		    return !isBrowser ? bake() : undefined;
-		  },
-
-		  data() {
-		    return {
-		      isBrowser: typeof window !== "undefined"
-		    };
-		  }
-		};
+	  data() {
+	    return {
+	      isBrowser: typeof window !== "undefined",
+	      svgLayers: [
+	        {
+	          component: ChartOutline,
+	          options: {}
+	        },
+	        {
+	          component: ChartLine,
+	          options: {}
+	        }
+	      ]
+	    };
+	  }
+	};
 </script>

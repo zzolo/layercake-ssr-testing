@@ -1,0 +1,155 @@
+<div
+	class="layercake"
+	bind:clientWidth=containerWidth
+	bind:clientHeight=containerHeight>
+	{#if svgLayers && svgLayers.length}
+		<SVG
+			{...props}
+			layers="{ svgLayers }"
+		/>
+	{/if}
+</div>
+
+<style>
+	:global(.layercake),
+	:global(.layercake *) {
+	  box-sizing: border-box;
+	}
+	:global(.layercake) {
+	  width: 100%;
+	  height: 100%;
+	}
+</style>
+
+<script>
+	import SVG from "./SVG.html";
+	import { scaleLinear } from "d3-scale";
+
+	export default {
+	  components: {
+	    SVG
+	  },
+
+	  computed: {
+	    // Get all properties.
+	    // Maybe we should be more intentional about what gets passed
+	    props: state => state,
+
+	    // Width from client or default
+	    width({ defaultWidth, containerWidth }) {
+	      return containerWidth || defaultWidth;
+	    },
+
+	    // Height from client or default
+	    height({ defaultHeight, containerHeight }) {
+	      return containerHeight || defaultHeight;
+	    },
+
+	    // Calculated width minus padding
+	    innerWidth({ padding, width }) {
+	      return width - padding.left - padding.right;
+	    },
+
+	    // Calculated width minus padding
+	    innerHeight({ padding, height }) {
+	      return height - padding.top - padding.bottom;
+	    },
+
+	    // xScaled value
+	    xScaled({ xGet, xScale }) {
+	      return d => xScale(xGet(d));
+	    },
+
+	    // xScaled value
+	    yScaled({ yGet, yScale }) {
+	      return d => yScale(yGet(d));
+	    },
+
+	    // Wrapper around get x
+	    xGet({ x }) {
+	      return typeof x === "function"
+	        ? x
+	        : d => (d && d[x] !== undefined ? d[x] : undefined);
+	    },
+
+	    // Wrapper around get y
+	    yGet({ y }) {
+	      return typeof y === "function"
+	        ? y
+	        : d => (d && d[y] !== undefined ? d[y] : undefined);
+	    },
+
+	    // Calculate x scale
+	    xScale({ xMin, xMax, innerWidth }) {
+	      return scaleLinear()
+	        .domain([xMin, xMax])
+	        .range([0, innerWidth]);
+	    },
+
+	    // Calculate y scale
+	    yScale({ yMin, yMax, innerHeight }) {
+	      return scaleLinear()
+	        .domain([yMin, yMax])
+	        .range([innerHeight, 0]);
+	    },
+
+	    // x min
+	    xMin({ data, xGet }) {
+	      if (!data || !xGet) {
+	        return;
+	      }
+
+	      return Math.min(...data.map(xGet));
+	    },
+
+	    // x max
+	    xMax({ data, xGet }) {
+	      if (!data || !xGet) {
+	        return;
+	      }
+
+	      return Math.max(...data.map(xGet));
+	    },
+
+	    // y min
+	    yMin({ data, yGet }) {
+	      if (!data || !yGet) {
+	        return;
+	      }
+
+	      return Math.min(...data.map(yGet));
+	    },
+
+	    // y max
+	    yMax({ data, yGet }) {
+	      if (!data || !yGet) {
+	        return;
+	      }
+
+	      return Math.max(...data.map(yGet));
+	    }
+	  },
+
+	  data() {
+	    return {
+	      defaultWidth: 100,
+	      defaultHeight: 100,
+	      padding: {
+	        top: 10,
+	        right: 10,
+	        bottom: 10,
+	        left: 10
+	      },
+	      x: d => {
+	        return d && d.x ? d.x : d && d[0] ? d[0] : undefined;
+	      },
+	      y: d => {
+	        return d && d.y ? d.y : d && d[1] ? d[1] : undefined;
+	      },
+	      layouts: {
+	        SVG
+	      }
+	    };
+	  }
+	};
+</script>

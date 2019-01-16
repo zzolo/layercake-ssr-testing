@@ -11,9 +11,9 @@
 </style>
 		<style>
 			header.svelte-py4awp,main.svelte-py4awp,footer.svelte-py4awp{max-width:50em;margin:0 auto 2em}
-.chart-container.svelte-1ozivce{position:relative;box-sizing:border-box;height:20em;border:1px solid #bbccdd}
-.layercake-chart-container,.layercake-chart-container *{box-sizing:border-box}.svelte-ref-chartContainer.svelte-1f8skbk{width:100%;height:100%}
-.svelte-ref-svgLayout.svelte-18jpo51{position:absolute;top:0;left:0}
+.chart.svelte-83e0ko{position:relative;box-sizing:border-box;height:20em;border:1px solid #bbccdd}
+.layercake,.layercake *{box-sizing:border-box}.layercake{width:100%;height:100%}
+.layercake-svg.svelte-1rpwb0m{position:absolute;top:0;left:0;width:100%;height:100%}
 .chart-outline.svelte-p1gazz rect.svelte-p1gazz{stroke:pink;fill:none}
 .chart-line.svelte-11gj2p0{fill:none;stroke:red;stroke-linejoin:round;stroke-linecap:round;stroke-width:2}
 		</style>
@@ -30,23 +30,21 @@
 	<p>Client loads after 3 seconds; loaded: no</p>
 	<p>Here is a Cake:</p>
 
-	<div class="chart">
-	<div class="chart-container svelte-1ozivce">
-		<div class="layercake-chart-container svelte-1f8skbk svelte-ref-chartContainer" clientWidth=100 clientHeight=100>
-	<svg data-layout-index="0" data-layout="Svg" width="100" height="100" style="" class="svelte-18jpo51 svelte-ref-svgLayout">
-	
-	<g transform="translate(0, 0)">
+	<div class="chart svelte-83e0ko">
+	<div class="layercake"  >
+	<svg class="layercake-svg layercake-svg-undefined svelte-1rpwb0m" width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+
+	<g transform="translate(10, 10)">
 		<g>
 				<g class="chart-outline svelte-p1gazz">
-	<rect x="0" y="0" width="100" height="100" class="svelte-p1gazz">
+	<rect x="0" y="0" width="80" height="80" class="svelte-p1gazz">
 </rect></g>
 			</g><g>
-				<path class="chart-line svelte-11gj2p0" d=""></path>
+				<path class="chart-line svelte-11gj2p0" d="M0,58.18181818181819L6.666666666666666,48.484848484848484L13.333333333333332,9.696969696969703L20,67.87878787878788L26.666666666666664,80L33.333333333333336,48.99878787878788L40,33.93939393939394L46.66666666666667,29.090909090909093L53.33333333333333,22.787878787878782L60,0L66.66666666666667,4.848484848484844L73.33333333333333,9.696969696969703L80,12.606060606060609"></path>
 			</g>
 	</g>
 </svg>
 </div>
-	</div>
 </div>
 </main>
 

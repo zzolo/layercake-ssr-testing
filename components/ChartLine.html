@@ -15,15 +15,19 @@
     namespace: "svg",
 
     computed: {
-      path: ({ $data, $xGet, $yGet }) => {
-        return $data
-          ? "M" +
-              $data
-                .map((d, i) => {
-                  return $xGet(d) + "," + $yGet(d);
-                })
-                .join("L")
-          : "";
+      path: ({ data, xScaled, yScaled }) => {
+        if (!data || !xScaled || !yScaled) {
+          return "";
+        }
+
+        return (
+          "M" +
+          data
+            .map((d, i) => {
+              return xScaled(d) + "," + yScaled(d);
+            })
+            .join("L")
+        );
       }
     }
   };

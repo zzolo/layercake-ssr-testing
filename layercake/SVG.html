@@ -1,0 +1,45 @@
+<svg
+	ref:svgLayout
+	class="layercake-svg layercake-svg-{ layoutIndex }"
+	width="{ width }"
+	height="{ height }"
+	viewBox="0 0 { width } { height }"
+	preserveAspectRatio="xMidYMid meet">
+
+	<g transform="translate({ padding.left }, { padding.top })">
+		{#each layers as layer, li}
+			<g>
+				<svelte:component
+					this="{ layer.component}"
+					{...layer.options}
+					{...props}
+				/>
+			</g>
+		{/each}
+	</g>
+</svg>
+
+<style>
+	.layercake-svg {
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  width: 100%;
+	  height: 100%;
+	}
+</style>
+
+<script>
+	export default {
+	  computed: {
+	    // Get all properties.  Easy to pass to sub components
+	    props: state => state
+	  },
+
+	  data() {
+	    return {};
+	  }
+	};
+</script>
+
+
